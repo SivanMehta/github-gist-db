@@ -25,9 +25,7 @@ function GHStorage (config) {
 }
 
 GHStorage.prototype.listGistDescriptions = function (cb) {
-  this.githubConnection.gists.getAll({
-      username: "SivanMehta"
-  }, (err, res) => {
+  this.githubConnection.gists.getAll({}, (err, res) => {
     const gists = res.data.map(d => d.description)
     cb(JSON.stringify(gists))
   })
@@ -45,15 +43,22 @@ GHStorage.prototype.create = function (dbname, cb) {
 /**
  * Create a new datastore with the given name
  * @param {Object} data
+ * @param {String} data.dbname
  * @param {String} data.key
- * @param {String} data.value
+ * @param {Object} data.value
  * @param {Function} callback
- * @param {Object}
  */
 GHStorage.prototype.put = function (data, callback) {
   this.dbs[data.dbname].put(data.key, data.value, callback)
 }
 
+/**
+ * Create a new datastore with the given name
+ * @param {Object} data
+ * @param {String} data.dbname
+ * @param {String} data.key
+ * @param {Function} callback
+ */
 GHStorage.prototype.get = function (data, callback) {
   this.dbs[data.dbname].get(data.key, callback)
 }

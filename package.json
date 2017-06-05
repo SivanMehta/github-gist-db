@@ -17,5 +17,8 @@
     "bluebird": "^3.5.0",
     "github": "^9.2.0",
     "level": "^1.7.0"
+  },
+  "devDependencies": {
+    "moment": "^2.18.1"
   }
 }

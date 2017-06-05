@@ -17,26 +17,26 @@ var db = new gs()
 
 Now `db` is an object that will interact with Github to store your data. If you plan on using private gists, you will need to provide authorization as per the [`github`](https://github.com/mikedeboer/node-github) package. If no authorization is provided, you will still be able to `connect` to public gists, but everything else will be restricted.
 
-#### `db.create(dbname)`
+#### `db.create(dbname, callback)`
 
 Creates a datastore with the name `dbname`
 
-#### `db.destroy(dbname)`
+#### `db.destroy(dbname, callback)`
 
 Destroys a datastore with the name `dbname`, provided that it's already been created
 
-#### `db.push(dbname)`
+#### `db.push(dbname, callback)`
 
 Connects to GitHub and either creates a gist to store the current database, or pushes the current state of the database to the gist
 
-#### `db.pull(dbname)`
+#### `db.pull(dbname, callback)`
 
 Connects to GitHub and either creates a gist to store the current database, or pushes the current state of the database to the gist
 
-#### `db.put(dbname, key, value)`
+#### `db.put(params, callback)`
 
-Stores a `value` assigned to the value `key`
+`params` should have the values for `dbname`, `key`, and `value`
 
-#### `db.get(dbname, key)`
+#### `db.get(params, callback)`
 
-Gets value assigned to the value `key`
+`params` should have the values for `dbname`, `key`
