@@ -82,23 +82,36 @@ GHStorage.prototype.get = function (data, cb) {
  * @param {Function} cb
  */
 GHStorage.prototype.push = function (dbname, cb) {
+  // compile entire database into one files object
+  const files = {}
+  const gistName = dbname + '-snapshot'
+  files[gistName] = { content: "Database Snapshot" }
+  const description = "Last Updated " + moment().toString()
+
   // if cache is empty, query github for authorized gists
 
   // check the cache to see if there is a currently a gist for this database
-
-  // create a new gist if there is not one available
-  const gistName = dbname + '-snapshot'
-  const files = {}
-  files[gistName] = { content: "Database Snapshot" }
-  this.githubConnection.gists.create({
-    files: files,
-    public: true
-  }, (err, data) => {
-    // cache remote ID so we can just update it in the future
-    this.remoteCache[dbname, data.data.id]
-    cb(err, data.data.id)
-  })
-}
+  if(this.remoteCache[dbname]) {
+    this.githubConnection.gists.edit({
+      id: this.remoteCache[dbname],
+      files: files,
+      description: description
+    }, (err, data) => {
+      cb(err, data.data.id)
+    })
+  } else {
+    // create a new gist if there is not one available
+    this.githubConnection.gists.create({
+      files: files,
+      public: true,
+      description: description
+    }, (err, data) => {
+      // cache remote ID so we can just update it in the future
+      this.remoteCache[dbname] = data.data.id
+      cb(err, data.data.id)
+    }) // githubConnection.create
+  } // else
+} // GHStorage.push
 
 /**
  * Pulls down a remote gist of this name, replacing the local datastore
