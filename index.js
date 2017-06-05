@@ -46,10 +46,8 @@ GHStorage.prototype.create = function (dbname, cb) {
  * @param {Function} cb function of the form function (err, db) {}
  */
 GHStorage.prototype.destroy = function (dbname, cb = console.error) {
-  console.log('here')
-  this.dbs[dbname].close(() => {
-    leveldown.destroy(dbname, cb)
-  })
+  this.dbs[dbname].close(cb)
+  delete this.dbs[dbname]
 }
 
 /**
