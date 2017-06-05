@@ -2,7 +2,7 @@ const GitHubApi = require('github')
 var levelup = require('levelup')
 var leveldown = require('leveldown')
 
-function GHStorage (config) {
+function GHStorage (config = {}) {
   var defaultConfig = {
     protocol: "https",
     host: "api.github.com",
@@ -41,6 +41,16 @@ GHStorage.prototype.create = function (dbname, cb) {
 }
 
 /**
+ * Destroys the local data store of the given name
+ * @param {String} dbname
+ * @param {Function} cb function of the form function (err, db) {}
+ */
+GHStorage.prototype.destroy = function (dbname, cb) {
+  delete this.dbs[dbname]
+  leveldown.destroy(dbname, cb)
+}
+
+/**
  * Create a new datastore with the given name
  * @param {Object} data
  * @param {String} data.dbname
@@ -62,5 +72,6 @@ GHStorage.prototype.put = function (data, callback) {
 GHStorage.prototype.get = function (data, callback) {
   this.dbs[data.dbname].get(data.key, callback)
 }
+
 
 module.exports = GHStorage
