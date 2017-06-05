@@ -13,24 +13,28 @@ function post (req, res) {
   const time = moment().toString()
 
   db.put({dbname: config.dbname, key: url, value: time }, () => {
-    res.send('Saved ' + time + ' to ' + url + " !")
+    res.send('Saved ' + time + ' to ' + url + " !\n")
   })
 }
 
 function get (req, res) {
   const url = req.url.split("/")[1]
-  
+
   db.get({dbname: config.dbname, key: url}, (err, data) => {
     res.send(data)
   })
 }
 
 function persist (req, res) {
-  res.send('persist\n')
+  db.push(config.dbname, (err, id) => {
+    console.log(id)
+    res.send('persisted\n')
+  })
 }
 
 db.create(config.dbname, () => {
   app.post("*", post)
+  app.get("/persist", persist)
   app.get("*", get)
   app.listen(8080)
 })

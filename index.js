@@ -1,6 +1,7 @@
 const GitHubApi = require('github')
-var levelup = require('levelup')
-var leveldown = require('leveldown')
+const levelup = require('levelup')
+const leveldown = require('leveldown')
+const moment = require('moment')
 
 function GHStorage (config = {}) {
   var defaultConfig = {
@@ -22,6 +23,7 @@ function GHStorage (config = {}) {
 
   this.githubConnection = githubConnection
   this.dbs = {}
+  this.remoteCache = {}
 }
 
 GHStorage.prototype.listGistDescriptions = function (cb) {
@@ -79,7 +81,24 @@ GHStorage.prototype.get = function (data, cb) {
  * @param {String} dbname
  * @param {Function} cb
  */
-GHStorage.prototype.push = function (dbname, cb) {}
+GHStorage.prototype.push = function (dbname, cb) {
+  // if cache is empty, query github for authorized gists
+
+  // check the cache to see if there is a currently a gist for this database
+
+  // create a new gist if there is not one available
+  const gistName = dbname + '-snapshot'
+  const files = {}
+  files[gistName] = { content: "Database Snapshot" }
+  this.githubConnection.gists.create({
+    files: files,
+    public: true
+  }, (err, data) => {
+    // cache remote ID so we can just update it in the future
+    this.remoteCache[dbname, data.data.id]
+    cb(err, data.data.id)
+  })
+}
 
 /**
  * Pulls down a remote gist of this name, replacing the local datastore
