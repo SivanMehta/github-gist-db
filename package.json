@@ -19,6 +19,7 @@
     "level": "^1.7.0"
   },
   "devDependencies": {
+    "express": "^4.15.3",
     "moment": "^2.18.1"
   }
 }

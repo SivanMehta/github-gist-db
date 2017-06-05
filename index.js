@@ -58,8 +58,8 @@ GHStorage.prototype.destroy = function (dbname, cb) {
  * @param {Object} data.value
  * @param {Function} callback
  */
-GHStorage.prototype.put = function (data, callback) {
-  this.dbs[data.dbname].put(data.key, data.value, callback)
+GHStorage.prototype.put = function (data, cb) {
+  this.dbs[data.dbname].put(data.key, data.value, cb)
 }
 
 /**
@@ -67,11 +67,26 @@ GHStorage.prototype.put = function (data, callback) {
  * @param {Object} data
  * @param {String} data.dbname
  * @param {String} data.key
- * @param {Function} callback
+ * @param {Function} cb
  */
-GHStorage.prototype.get = function (data, callback) {
-  this.dbs[data.dbname].get(data.key, callback)
+GHStorage.prototype.get = function (data, cb) {
+  this.dbs[data.dbname].get(data.key, cb)
 }
 
+/**
+ * Pushes a database to a github gist. If it has never been done before,
+ * it will create a new gist to do so
+ * @param {String} dbname
+ * @param {Function} cb
+ */
+GHStorage.prototype.push = function (dbname, cb) {}
+
+/**
+ * Pulls down a remote gist of this name, replacing the local datastore
+ * WARNING: This will remove everything that has not been pushed
+ * @param {String} dbname
+ * @param {Function} cb
+ */
+GHStorage.prototype.pull = function (dbname, cb) {}
 
 module.exports = GHStorage
