@@ -1,4 +1,5 @@
 const GitHubApi = require('github')
+var levelup = require('levelup')
 
 function GHStorage (config) {
   var defaultConfig = {
@@ -19,16 +20,24 @@ function GHStorage (config) {
   })
 
   this.githubConnection = githubConnection
-  this.dbConnection = require('levelup')
+  this.dbs = {}
 }
 
 GHStorage.prototype.listGistDescriptions = function (cb) {
   this.githubConnection.gists.getAll({
       username: "SivanMehta"
   }, (err, res) => {
-    const users = res.data.map(d => d.description)
-    cb(JSON.stringify(users))
+    const gists = res.data.map(d => d.description)
+    cb(JSON.stringify(gists))
   })
+}
+
+/**
+ * Create a new datastore with the given name
+ * @param {String} dbname name of datastore
+*/
+GHStorage.prototype.create = function (dbname) {
+  this.dbs[dbname] = levelup(dbname)
 }
 
 module.exports = GHStorage

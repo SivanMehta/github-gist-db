@@ -12,7 +12,7 @@ Use github gist as a key-value store because it is free and has a well-documente
 
 ```js
 var gs = require('github-storage')
-var db = gs.authorize()
+var db = new gs()
 ```
 
 Now `db` is an object that will interact with Github to store your data. If you plan on using private gists, you will need to provide authorization as per the [`github`](https://github.com/mikedeboer/node-github) package. If no authorization is provided, you will still be able to `connect` to public gists, but everything else will be restricted.
@@ -21,14 +21,22 @@ Now `db` is an object that will interact with Github to store your data. If you 
 
 Creates a datastore with the name `dbname`
 
-#### `db.connect(dbname)`
+#### `db.destroy(dbname)`
 
-Reads a gist from the given dbname and creates local key-value store. If it is a private gist, you should provide authorization to the client to access it.
-
-#### `db.disconnect(dbname, remote = false)`
-
-Deletes local data store, but leaves the remote intact. To delete the remote datastore also, simply pass `remote = true`.
+Destroys a datastore with the name `dbname`, provided that it's already been created
 
 #### `db.push(dbname)`
 
-Takes the local datastore and pushes it to a gist on Github. Requires that you have already performed `connect`
+Connects to GitHub and either creates a gist to store the current database, or pushes the current state of the database to the gist
+
+#### `db.pull(dbname)`
+
+Connects to GitHub and either creates a gist to store the current database, or pushes the current state of the database to the gist
+
+#### `db.put(dbname, key, value)`
+
+Stores a `value` assigned to the value `key`
+
+#### `db.get(dbname, key)`
+
+Gets value assigned to the value `key`
