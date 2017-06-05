@@ -1,5 +1,5 @@
 // make sure that the database is already created
-const gs = require('../')
+const gs = require('../lib')
 const config = require('./config.json')
 const moment = require('moment')
 

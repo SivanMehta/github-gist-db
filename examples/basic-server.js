@@ -1,4 +1,4 @@
-const gs = require('../')
+const gs = require('../lib')
 const config = require('./config.json')
 const express = require('express')
 const morgan = require('morgan')
