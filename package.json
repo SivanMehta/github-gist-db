@@ -2,10 +2,6 @@
   "name": "github-gist-db",
   "version": "1.0.1",
   "description": "Use Github as a key-value store",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "storage",
     "github",
@@ -13,6 +9,14 @@
   ],
   "author": "Sivan Mehta",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SivanMehta/github-gist-db.git"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "github": "^9.2.0",
