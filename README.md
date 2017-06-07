@@ -6,8 +6,6 @@ Use [GitHub Gists](https://gist.github.com/) as a key-value store because it is 
 
 # Examples
 
-Right now there is no npm package for this, but you can clone this repository to access the code. To run the examples, you can follow these steps.
-
 ```shell
 git clone git@github.com:SivanMehta/github-storage.git
 cd github-storage
@@ -24,6 +22,10 @@ This will require that you create a file named `examples/config.json` that takes
 ```
 
 # Usage
+
+```
+yarn install github-gist-db
+```
 
 ```js
 var gs = require('github-storage')
