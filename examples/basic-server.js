@@ -42,12 +42,18 @@ function update (req, res) {
   })
 }
 
-db.create(config.dbname, () => {
-  app.post("*", post)
-  app.get("/persist", persist)
-  app.get("/update", update)
-  app.get("*", get)
-  app.listen(8080)
+db.create(config.dbname).then(success => {
+  if(success) {
+    app.post("*", post)
+    app.get("/persist", persist)
+    app.get("/update", update)
+    app.get("*", get)
+
+    app.listen(8080, () => { console.log('Started server on port 8080!') })
+  } else {
+    console.error('Could not create database')
+    process.exit(0)
+  }
 })
 
 // when server closes (in this case on CTRL-C)
