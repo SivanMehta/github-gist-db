@@ -8,6 +8,7 @@ var db = new gs({ token: config.token })
 var app = express()
 app.use(require('morgan')('dev'))
 
+// place new value in datastore
 function post (req, res) {
   const url = req.url.split("/")[1]
   const time = moment().toString()
@@ -17,6 +18,7 @@ function post (req, res) {
   })
 }
 
+// get value from datastore
 function get (req, res) {
   const url = req.url.split("/")[1]
 
@@ -25,6 +27,7 @@ function get (req, res) {
   })
 }
 
+// save datastore to github gist
 function persist (req, res) {
   db.push(config.dbname, (err, id) => {
     console.log(id)
@@ -32,9 +35,17 @@ function persist (req, res) {
   })
 }
 
+// update yourself with github
+function update (req, res) {
+  db.pull(config.dbname, (success) => {
+    success ? res.sendStatus(200) : res.sendStatus(500)
+  })
+}
+
 db.create(config.dbname, () => {
   app.post("*", post)
   app.get("/persist", persist)
+  app.get("/update", update)
   app.get("*", get)
   app.listen(8080)
 })
