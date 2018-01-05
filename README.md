@@ -24,12 +24,12 @@ This will require that you create a file named `examples/config.json` that takes
 # Usage
 
 ```
-yarn install github-gist-db
+npm install github-gist-db
 ```
 
 ```js
-var gs = require('github-storage')
-var db = new gs({ token: 'YOUR-GITHUB-ACCESS-TOKEN' })
+var ggd = require('github-gist-db')
+var db = new ggd({ token: 'YOUR-GITHUB-ACCESS-TOKEN' })
 ```
 
 Now `db` is an object that will interact with Github to store your data. If you plan on using some other type of authorization, you will need to provide authorization [exactly like you would the `github` package ](https://github.com/mikedeboer/node-github#authentication).
