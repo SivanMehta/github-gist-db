@@ -9,7 +9,7 @@ Use [GitHub Gists](https://gist.github.com/) as a key-value store because it is 
 ```shell
 git clone git@github.com:SivanMehta/github-storage.git
 cd github-storage
-yarn install
+npm install
 node examples/server-setup.js
 ```
 
