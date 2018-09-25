@@ -18,12 +18,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "github": "^9.2.0",
-    "level": "^1.7.0"
+    "github": "^14.0.0",
+    "level": "^4.0.0"
   },
   "devDependencies": {
-    "express": "^4.15.3",
-    "moment": "^2.18.1",
-    "morgan": "^1.8.2"
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "morgan": "^1.9.1"
   }
 }
