@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/github-gist-db.svg)](https://badge.fury.io/js/github-gist-db)
+[![npm version](https://badge.fury.io/js/github-gist-db.svg)](https://badge.fury.io/js/github-gist-db) [![Build Status](https://travis-ci.com/SivanMehta/github-gist-db.svg?branch=master)](https://travis-ci.com/SivanMehta/github-gist-db)
 
 # Purpose
 
